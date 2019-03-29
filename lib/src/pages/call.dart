@@ -51,7 +51,8 @@ class _CallPageState extends State<CallPage> {
       return;
     }
 
-    PermissionHandler().requestPermissions([PermissionGroup.camera, PermissionGroup.microphone]);
+    PermissionHandler().requestPermissions(
+        [PermissionGroup.camera, PermissionGroup.microphone]);
 
     _initAgoraRtcEngine();
     _addAgoraEventHandlers();

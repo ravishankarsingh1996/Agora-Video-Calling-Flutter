@@ -1,3 +1,4 @@
+import 'package:agora_flutter_quickstart/src/pages/voice_call.dart';
 import 'package:flutter/material.dart';
 import './call.dart';
 
@@ -26,7 +27,7 @@ class IndexState extends State<IndexPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text('Agora Flutter QuickStart'),
+          title: Text('Flutter Video Call'),
         ),
         body: Center(
           child: Container(
@@ -54,8 +55,17 @@ class IndexState extends State<IndexPage> {
                         children: <Widget>[
                           Expanded(
                             child: RaisedButton(
-                              onPressed: () => onJoin(),
-                              child: Text("Join"),
+                              onPressed: () => onJoin(0),
+                              child: Text("Join Video Call"),
+                              color: Colors.blueAccent,
+                              textColor: Colors.white,
+                            ),
+                          ),
+                          SizedBox(width: 20.0,),
+                          Expanded(
+                            child: RaisedButton(
+                              onPressed: () => onJoin(1),
+                              child: Text("Join Voice Call"),
                               color: Colors.blueAccent,
                               textColor: Colors.white,
                             ),
@@ -67,7 +77,7 @@ class IndexState extends State<IndexPage> {
         ));
   }
 
-  onJoin() {
+  onJoin(int callType) {
     // update input validation
     setState(() {
       _channelController.text.isEmpty
@@ -79,9 +89,20 @@ class IndexState extends State<IndexPage> {
       Navigator.push(
           context,
           MaterialPageRoute(
-              builder: (context) => new CallPage(
-                    channelName: _channelController.text,
-                  )));
+              builder: (context) =>  redirectToPage(callType)));
+    }
+  }
+
+  redirectToPage(int callType) {
+    switch(callType){
+      case 0:
+        return CallPage(
+          channelName: _channelController.text,
+        );
+      case 1:
+        return VoiceCall(
+          channelName: _channelController.text,
+        );
     }
   }
 }
