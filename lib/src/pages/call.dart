@@ -215,6 +215,31 @@ class _CallPageState extends State<CallPage> {
     return Container();
   }
 
+  Widget _videoViewWidget(){
+    List<Widget> views = _getRenderViews();
+    switch (views.length) {
+      case 1:
+        return Container(
+            child: Column(
+              children: <Widget>[_videoView(views[0])],
+            ));
+      case 2:
+        return Container(
+            child: Stack(
+              children: <Widget>[Column(
+                children: <Widget>[
+                  _videoView(views[1]),
+                ],
+              ), Align(alignment: Alignment.topRight ,child: Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Container(child: views[0],height: 150,width: 100,),
+              ),)],
+            ));
+      default:
+    }
+    return Container();
+  }
+
   /// Toolbar layout
   Widget _toolbar() {
     return Container(
@@ -323,7 +348,7 @@ class _CallPageState extends State<CallPage> {
         backgroundColor: Colors.black,
         body: Center(
             child: Stack(
-          children: <Widget>[_viewRows(), _panel(), _toolbar()],
+          children: <Widget>[_videoViewWidget(), _panel(), _toolbar()],
         )));
   }
 }

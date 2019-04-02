@@ -1,4 +1,4 @@
-import 'package:agora_flutter_quickstart/src/pages/voice_call.dart';
+import 'package:agora_flutter_quickstart/src/pages/voiceCall.dart';
 import 'package:flutter/material.dart';
 import './call.dart';
 
@@ -61,7 +61,9 @@ class IndexState extends State<IndexPage> {
                               textColor: Colors.white,
                             ),
                           ),
-                          SizedBox(width: 20.0,),
+                          SizedBox(
+                            width: 20.0,
+                          ),
                           Expanded(
                             child: RaisedButton(
                               onPressed: () => onJoin(1),
@@ -86,23 +88,22 @@ class IndexState extends State<IndexPage> {
     });
     if (_channelController.text.isNotEmpty) {
       // push video page with given channel name
-      Navigator.push(
-          context,
-          MaterialPageRoute(
-              builder: (context) =>  redirectToPage(callType)));
+      Navigator.push(context,
+          MaterialPageRoute(builder: (context) => redirectToPage(callType)));
     }
   }
 
   redirectToPage(int callType) {
-    switch(callType){
+    switch (callType) {
       case 0:
         return CallPage(
           channelName: _channelController.text,
         );
       case 1:
-        return VoiceCall(
+        return VoiceCall();
+      /*  return VoiceCall(
           channelName: _channelController.text,
-        );
+        );*/
     }
   }
 }
