@@ -25,23 +25,23 @@ class _VoiceCallState extends State<VoiceCall> {
               ),
               Text('VOICE CALL',
                   style: TextStyle(
-                      color: Colors.blueGrey[900],
+                      color: Colors.deepPurple[900],
                       fontWeight: FontWeight.w300,
                       fontSize: 15)),
               SizedBox(
-                height: 10.0,
+                height: 20.0,
               ),
-              Text('Ravi Singh',
+              Text('Ravi Shankar Singh',
                   style: TextStyle(
-                      color: Colors.blueGrey[900],
+                      color: Colors.deepPurple[900],
                       fontWeight: FontWeight.w900,
                       fontSize: 20)),
               SizedBox(
-                height: 40.0,
+                height: 20.0,
               ),
               Text('0:09',
                   style: TextStyle(
-                      color: Colors.blue[900],
+                      color: Colors.deepPurple[900],
                       fontWeight: FontWeight.w300,
                       fontSize: 15)),
               SizedBox(
@@ -50,8 +50,8 @@ class _VoiceCallState extends State<VoiceCall> {
               ClipRRect(
                 child: Image.network(
                   'https://avatars3.githubusercontent.com/u/20386271?s=460&v=4',
-                  height: 120,
-                  width: 120,
+                  height: 200,
+                  width: 200,
                 ),
                 borderRadius: BorderRadius.circular(200.0),
               ),
@@ -59,7 +59,7 @@ class _VoiceCallState extends State<VoiceCall> {
                 height: 50.0,
               ),
               Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 mainAxisSize: MainAxisSize.max,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
@@ -69,7 +69,7 @@ class _VoiceCallState extends State<VoiceCall> {
                 ],
               ),
               SizedBox(
-                height: 100.0,
+                height: 150.0,
               ),
               FloatingActionButton(
                 onPressed: (){},
@@ -98,7 +98,7 @@ class _VoiceCallState extends State<VoiceCall> {
         FloatingActionButton(
           onPressed: onPressed,
           elevation: 0,
-          mini: true,
+          mini: false,
           child: Icon(
             icon,
             color: Colors.deepPurple,
