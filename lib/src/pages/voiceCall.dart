@@ -63,16 +63,25 @@ class _VoiceCallState extends State<VoiceCall> {
                 mainAxisSize: MainAxisSize.max,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
-                  _getFunctionalButton('Speaker', Icons.phone_in_talk, () {}),
-                  _getFunctionalButton('Video Call', Icons.videocam, () {}),
-                  _getFunctionalButton('Mute', Icons.mic_off, () {}),
+                  FunctionalButton(
+                    key: Key('Speaker'),
+                    title: 'Speaker',
+                    icon: Icons.phone_in_talk,
+                    onPressed: null,
+                  ),
+                  FunctionalButton(
+                      title: 'Video Call',
+                      icon: Icons.videocam,
+                      onPressed: () {}),
+                  FunctionalButton(
+                      title: 'Mute', icon: Icons.mic_off, onPressed: () {}),
                 ],
               ),
               SizedBox(
                 height: 150.0,
               ),
               FloatingActionButton(
-                onPressed: (){},
+                onPressed: () {},
                 elevation: 20,
                 shape: CircleBorder(side: BorderSide(color: Colors.red)),
                 mini: false,
@@ -88,25 +97,42 @@ class _VoiceCallState extends State<VoiceCall> {
       ),
     );
   }
+}
 
-  _getFunctionalButton(String title, IconData icon, Function() onPressed) {
+class FunctionalButton extends StatefulWidget {
+  final title;
+  final icon;
+  final Function() onPressed;
+
+  const FunctionalButton({Key key, this.title, this.icon, this.onPressed})
+      : super(key: key);
+
+  @override
+  _FunctionalButtonState createState() => _FunctionalButtonState();
+}
+
+class _FunctionalButtonState extends State<FunctionalButton> {
+  @override
+  Widget build(BuildContext context) {
     return Column(
       mainAxisSize: MainAxisSize.min,
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: <Widget>[
-        FloatingActionButton(
-          onPressed: onPressed,
-          elevation: 0,
-          mini: false,
-          child: Icon(
-            icon,
-            color: Colors.deepPurple,
+        ClipRRect(
+          borderRadius: BorderRadius.circular(200.0),
+          child: IconButton(
+            icon: Icon(
+              widget.icon,
+              color: Colors.deepPurple,
+            ),
+            onPressed: widget.onPressed,
+
+            color: Colors.grey[400],
           ),
-          backgroundColor: Colors.grey[200],
         ),
         Text(
-          title,
+          widget.title,
           style: TextStyle(fontSize: 10.0, color: Colors.deepPurple),
         )
       ],
