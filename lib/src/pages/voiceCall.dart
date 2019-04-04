@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 
 class VoiceCall extends StatefulWidget {
@@ -6,6 +8,34 @@ class VoiceCall extends StatefulWidget {
 }
 
 class _VoiceCallState extends State<VoiceCall> {
+  Timer _timer;
+  int _start = 0;
+
+  void startTimer() {
+    const oneSec = const Duration(seconds: 1);
+    _timer = new Timer.periodic(
+        oneSec,
+        (Timer timer) => setState(() {
+              if (_start < 0) {
+                timer.cancel();
+              } else {
+                _start = _start + 1;
+              }
+            }));
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    startTimer();
+  }
+
+  @override
+  void dispose() {
+    _timer.cancel();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -39,7 +69,7 @@ class _VoiceCallState extends State<VoiceCall> {
               SizedBox(
                 height: 20.0,
               ),
-              Text('0:09',
+              Text('$_start',
                   style: TextStyle(
                       color: Colors.deepPurple[900],
                       fontWeight: FontWeight.w300,
@@ -127,7 +157,6 @@ class _FunctionalButtonState extends State<FunctionalButton> {
               color: Colors.deepPurple,
             ),
             onPressed: widget.onPressed,
-
             color: Colors.grey[400],
           ),
         ),
