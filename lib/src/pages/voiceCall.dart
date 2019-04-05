@@ -8,22 +8,23 @@ class VoiceCall extends StatefulWidget {
 }
 
 class _VoiceCallState extends State<VoiceCall> {
-  Timer _timer;
+  Timer _timerI;
   int _start = 0;
+  String _timer = '';
 
   void startTimer() {
     const oneSec = const Duration(seconds: 1);
-    _timer = new Timer.periodic(
+    _timerI = new Timer.periodic(
         oneSec,
         (Timer timer) => setState(() {
               if (_start < 0) {
                 timer.cancel();
               } else {
                 _start = _start + 1;
+                _timer = getTimerTime(_start);
               }
             }));
   }
-
 
   @override
   void initState() {
@@ -33,7 +34,7 @@ class _VoiceCallState extends State<VoiceCall> {
 
   @override
   void dispose() {
-    _timer.cancel();
+    _timerI.cancel();
     super.dispose();
   }
 
@@ -56,7 +57,7 @@ class _VoiceCallState extends State<VoiceCall> {
               ),
               Text('VOICE CALL',
                   style: TextStyle(
-                      color: Colors.deepPurple[900],
+                      color: Colors.deepPurpleAccent,
                       fontWeight: FontWeight.w300,
                       fontSize: 15)),
               SizedBox(
@@ -64,15 +65,15 @@ class _VoiceCallState extends State<VoiceCall> {
               ),
               Text('Ravi Shankar Singh',
                   style: TextStyle(
-                      color: Colors.deepPurple[900],
+                      color: Colors.deepPurpleAccent,
                       fontWeight: FontWeight.w900,
                       fontSize: 20)),
               SizedBox(
                 height: 20.0,
               ),
-              Text('$_start',
+              Text('$_timer',
                   style: TextStyle(
-                      color: Colors.deepPurple[900],
+                      color: Colors.deepPurpleAccent,
                       fontWeight: FontWeight.w300,
                       fontSize: 15)),
               SizedBox(
@@ -95,17 +96,20 @@ class _VoiceCallState extends State<VoiceCall> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
                   FunctionalButton(
-                    key: Key('Speaker'),
                     title: 'Speaker',
                     icon: Icons.phone_in_talk,
-                    onPressed: null,
+                    onPressed: () {},
                   ),
                   FunctionalButton(
-                      title: 'Video Call',
-                      icon: Icons.videocam,
-                      onPressed: () {}),
+                    title: 'Video Call',
+                    icon: Icons.videocam,
+                    onPressed: () {},
+                  ),
                   FunctionalButton(
-                      title: 'Mute', icon: Icons.mic_off, onPressed: () {}),
+                    title: 'Mute',
+                    icon: Icons.mic_off,
+                    onPressed: () {},
+                  ),
                 ],
               ),
               SizedBox(
@@ -127,6 +131,22 @@ class _VoiceCallState extends State<VoiceCall> {
         ),
       ),
     );
+  }
+
+  String getTimerTime(int start) {
+    int minute = (start~/60);
+    String sMinute = '';
+    if(minute.toString().length == 1){
+      sMinute = '0' + minute.toString();
+    }else sMinute = minute.toString();
+
+    int seconds = (start % 60);
+    String sSeconds = '';
+    if(seconds.toString().length == 1){
+      sSeconds = '0' + seconds.toString();
+    }else sSeconds = seconds.toString();
+
+    return sMinute + ':'+ sSeconds;
   }
 }
 
@@ -150,20 +170,27 @@ class _FunctionalButtonState extends State<FunctionalButton> {
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: <Widget>[
-        ClipRRect(
-          borderRadius: BorderRadius.circular(200.0),
-          child: IconButton(
-            icon: Icon(
+        RawMaterialButton(
+          onPressed: widget.onPressed,
+          splashColor: Colors.deepPurpleAccent,
+          fillColor: Colors.white,
+          elevation: 10.0,
+          shape: CircleBorder(),
+          child: Padding(
+            padding: const EdgeInsets.all(15.0),
+            child: Icon(
               widget.icon,
-              color: Colors.deepPurple,
+              size: 30.0,
+              color: Colors.deepPurpleAccent,
             ),
-            onPressed: widget.onPressed,
-            color: Colors.grey[400],
           ),
         ),
-        Text(
-          widget.title,
-          style: TextStyle(fontSize: 10.0, color: Colors.deepPurple),
+        Container(
+          margin: EdgeInsets.symmetric(vertical: 10.0, horizontal: 2.0),
+          child: Text(
+            widget.title,
+            style: TextStyle(fontSize: 15.0, color: Colors.deepPurpleAccent),
+          ),
         )
       ],
     );
